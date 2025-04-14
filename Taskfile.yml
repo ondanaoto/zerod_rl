@@ -1,0 +1,10 @@
+version: '3'
+
+tasks:
+  fmt:
+    desc: format the code
+    dir: .
+    cmds:
+      - uv run mypy .
+      - uv run ruff check --fix .
+      - uv run ruff format .

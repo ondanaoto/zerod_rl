@@ -1,8 +1,8 @@
-from s01_bandit.bandit import Bandit
+from s01_bandit.bandit.fix import FixBandit
 
 
 def test_bandit():
-    bandit = Bandit(rates=[0.1, 0.5, 0.9])
+    bandit = FixBandit(rates=[0.1, 0.5, 0.9])
     assert bandit.play(0) <= 1
     assert bandit.play(1) <= 1
     assert bandit.play(2) <= 1

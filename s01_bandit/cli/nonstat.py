@@ -1,4 +1,4 @@
-from s01_bandit.action_reward_estimator.exp import ExponentialActionRewardEstimator
+from s01_bandit.action_value_estimator.exp import ExponentialActionRewardEstimator
 from s01_bandit.agent.eplison_greedy import EpsilonGreedyAgent
 from s01_bandit.bandit.nonstat import NonStatBandit
 

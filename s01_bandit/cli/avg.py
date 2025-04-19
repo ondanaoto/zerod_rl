@@ -1,4 +1,4 @@
-from s01_bandit.action_reward_estimator import AverageActionRewardEstimator
+from s01_bandit.action_value_estimator import AverageActionRewardEstimator
 from s01_bandit.bandit.fix import FixBandit
 
 

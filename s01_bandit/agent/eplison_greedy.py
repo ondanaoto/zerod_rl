@@ -1,6 +1,6 @@
 import numpy as np
 
-from s01_bandit.action_reward_estimator import ActionRewardEstimator
+from s01_bandit.action_value_estimator import ActionRewardEstimator
 
 from .interface import Agent
 

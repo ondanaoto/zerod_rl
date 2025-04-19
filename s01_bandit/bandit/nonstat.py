@@ -7,17 +7,20 @@ from .interface import Bandit
 
 class NonStatBandit(Bandit):
     def __init__(self, init_rate: list[float], sigma: float):
+        self.reset_init_rate(init_rate)
+        if sigma < 0.0:
+            raise ValueError("sigma must be nonnegative. sigma: ", sigma)
+        self.__sigma = sigma
+
+    def reset_init_rate(self, init_rate: list[float]) -> None:
         if len(init_rate) <= 0:
             raise ValueError("init_rate must be nonempty. init_rate: ", init_rate)
         if any(rate < 0 or rate > 1 for rate in init_rate):
             raise ValueError(
                 "each rate must be in range from 0.0 to 1.0. init_rate: ", init_rate
             )
-        if sigma <= 0.0:
-            raise ValueError("sigma must be positive. sigma: ", sigma)
         self.slots: list[Slot] = [Slot(rate=rate) for rate in init_rate]
         self.__arm_count = len(init_rate)
-        self.__sigma = sigma
 
     def play(self, arm: int) -> int:
         slot = self.slots[arm]

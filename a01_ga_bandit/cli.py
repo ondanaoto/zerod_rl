@@ -66,13 +66,13 @@ def _prompt(msg: str, cast, default):
 
 if __name__ == "__main__":
     print("=== experiment settings (press Enter to accept default) ===")
-    sigma          = _prompt("variance of environment",  float, 0.1)
-    time           = _prompt("time horizon per episode", int,   1000)
-    arm_num        = _prompt("number of slot arms",      int,   10)
-    max_individuals= _prompt("population size",          int,   200)
-    cross_num      = _prompt("number of crossovers",     int,   30)
-    mutation_rate  = _prompt("mutation rate",            float, 0.3)
-    epoch          = _prompt("epochs (generations)",     int,   1000)
+    sigma = _prompt("variance of environment", float, 0.1)
+    time = _prompt("time horizon per episode", int, 1000)
+    arm_num = _prompt("number of slot arms", int, 10)
+    max_individuals = _prompt("population size", int, 200)
+    cross_num = _prompt("number of crossovers", int, 30)
+    mutation_rate = _prompt("mutation rate", float, 0.3)
+    epoch = _prompt("epochs (generations)", int, 1000)
 
     main(
         sigma=sigma,

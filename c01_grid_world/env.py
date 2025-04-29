@@ -1,4 +1,3 @@
-from collections.abc import Generator
 from enum import Enum
 
 import numpy as np
@@ -21,11 +20,14 @@ class State(BaseModel):
     def is_in_range(x: int, y: int) -> bool:
         return 0 <= x < 3 and 0 <= y < 4 and (x, y) != (1, 1)
 
-    def range(self) -> Generator["State", None, None]:
-        for x in range(3):
-            for y in range(4):
-                if State.is_in_range(x, y):
-                    yield State(row=x, col=y)
+    @classmethod
+    def range(self) -> list["State"]:
+        return [
+            State(row=x, col=y)
+            for x in range(3)
+            for y in range(4)
+            if State.is_in_range(x, y)
+        ]
 
 
 class Action(Enum):
@@ -45,8 +47,8 @@ class Action(Enum):
 
 
 class GridWorld:
-    def __init__(self):
-        self.reset()
+    def __init__(self, s: State | None = None):
+        self.reset(s)
         self.__REWARD_MAP = np.array([[0, 0, 0, 1], [0, None, 0, -1], [0, 0, 0, 0]])
 
     def reset(self, s: State | None = None) -> None:

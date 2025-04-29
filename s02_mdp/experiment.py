@@ -26,12 +26,17 @@ def main(gamma: float, policy_name: str, iter_num: int) -> None:
 
 if __name__ == "__main__":
     import argparse
+
     parser = argparse.ArgumentParser(description="Run MDP experiment.")
     parser.add_argument(
         "--gamma", type=float, default=0.9, help="Discount factor (gamma)"
     )
     parser.add_argument(
-        "--policy", type=str, default="best", choices=["best", "random"], help="Policy name"
+        "--policy",
+        type=str,
+        default="best",
+        choices=["best", "random"],
+        help="Policy name",
     )
     parser.add_argument(
         "--iter_num", type=int, default=1000, help="Number of iterations"

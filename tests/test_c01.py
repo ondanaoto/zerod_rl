@@ -1,4 +1,4 @@
-from c01_grid_world.env import GridWorld, State, Action
+from c01_grid_world.env import Action, GridWorld, State
 
 
 def test_render():

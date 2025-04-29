@@ -1,14 +1,15 @@
+from collections.abc import Generator
 from enum import Enum
-from typing import Generator
 
 import numpy as np
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-Action = int
 
 class State(BaseModel):
     row: int = Field(..., ge=0, le=2)
     col: int = Field(..., ge=0, le=3)
+
+    model_config = ConfigDict(frozen=True)
 
     @model_validator(mode="after")
     def validate_in_range(self) -> "State":
@@ -26,6 +27,7 @@ class State(BaseModel):
                 if State.is_in_range(x, y):
                     yield State(row=x, col=y)
 
+
 class Action(Enum):
     UP = 0
     DOWN = 1
@@ -40,6 +42,7 @@ class Action(Enum):
             Action.LEFT: (0, -1),
             Action.RIGHT: (0, 1),
         }[self]
+
 
 class GridWorld:
     def __init__(self):
@@ -68,7 +71,7 @@ class GridWorld:
         s = self.state
         next_s = GridWorld._next_state(s, a)
         reward = self._reward(s, a, next_s)
-        done = (next_s.row == 0 and next_s.col == 3)
+        done = next_s.row == 0 and next_s.col == 3
         self.state = next_s
         return reward, next_s, done
 

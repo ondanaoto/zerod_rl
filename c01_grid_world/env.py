@@ -42,7 +42,7 @@ class GridWorld:
         s = self.state
         next_s = GridWorld._next_state(s, a)
         reward = self._reward(s, a, next_s)
-        done = (next_s == (0, 3))
+        done = next_s == (0, 3)
         self.state = next_s
         return reward, next_s, done
 

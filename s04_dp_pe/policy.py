@@ -1,12 +1,17 @@
+from collections import defaultdict
+
 from c01_grid_world.env import Action, State
 
 
 class Policy:
-    def __init__(self):
-        self._prob_dict = {
-            state: {action: 1.0 / len(Action) for action in Action}
-            for state in State.range()
-        }
+    def __init__(
+        self, prob_dict: dict[State, dict[Action, float]] | None = None
+    ) -> None:
+        if prob_dict is None:
+            prob_dict = defaultdict(
+                lambda: {action: 1.0 / len(Action) for action in Action}
+            )
+        self._prob_dict = prob_dict
 
     def __call__(self, state: State) -> dict[Action, float]:
         """
@@ -14,8 +19,13 @@ class Policy:
         """
         return self._prob_dict[state]
 
-    def update_greedy(self, d: dict[State, Action]) -> None:
+    @classmethod
+    def from_greedy(cls, d: dict[State, Action]) -> "Policy":
+        prob_dict: dict[State, dict[Action, float]] = defaultdict(
+            lambda: {action: 0.0 for action in Action}
+        )
         for state, action in d.items():
             for a in Action:
                 prob = 1.0 if a == action else 0.0
-                self._prob_dict[state][a] = prob
+                prob_dict[state][a] = prob
+        return cls(prob_dict)

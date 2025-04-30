@@ -7,10 +7,10 @@ def main(gamma: float = 0.9, threshold: float = 1e-4) -> None:
     value_function = ValueFunction(policy, gamma)
 
     while True:
-        diff = value_function.update()
+        diff = value_function.update(policy)
         value_function.render()
         best_policy_dict = value_function.argmax_policy()
-        policy.update_greedy(best_policy_dict)
+        policy = Policy.from_greedy(best_policy_dict)
         if diff < threshold:
             break
 

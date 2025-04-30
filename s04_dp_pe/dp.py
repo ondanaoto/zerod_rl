@@ -1,3 +1,4 @@
+from collections import defaultdict
 from c01_grid_world.env import Action, GridWorld, State
 
 from .policy import Policy
@@ -5,7 +6,7 @@ from .policy import Policy
 
 class ValueFunction:
     def __init__(self, policy: Policy, gamma: float) -> None:
-        self._value_dict = dict.fromkeys(State.range(), 0.0)
+        self._value_dict: dict[State, float] = defaultdict(lambda: 0.0)
         self.policy = policy
         self.__gamma = gamma
 
@@ -15,12 +16,15 @@ class ValueFunction:
         """
         return self._value_dict[state]
 
-    def update(self) -> float:
+    def update(self, policy: Policy | None = None) -> float:
         """
         Updates the value function based on the current policy.
         """
         env = GridWorld()
         old_value_dict = self._value_dict.copy()
+        if policy is not None:
+            self.policy = policy
+
         for state in State.range():
             action_probs = self.policy(state)
             next_value = 0.0

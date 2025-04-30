@@ -22,7 +22,7 @@ class Policy:
     @classmethod
     def from_greedy(cls, d: dict[State, Action]) -> "Policy":
         prob_dict: dict[State, dict[Action, float]] = defaultdict(
-            lambda: {action: 0.0 for action in Action}
+            lambda: dict.fromkeys(Action, 0.0)
         )
         for state, action in d.items():
             for a in Action:

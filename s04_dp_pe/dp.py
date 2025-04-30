@@ -34,7 +34,7 @@ class ValueFunction:
                 env.reset(state)
                 next_state, reward, _ = env.step(action)
                 next_value += prob * (
-                    reward + self.__gamma * self._value_dict[next_state]
+                    reward + self.__gamma * old_value_dict[next_state]
                 )
             self._value_dict[state] = next_value
 
@@ -45,7 +45,7 @@ class ValueFunction:
         )
         return max_diff
 
-    def argmax_policy(self) -> dict[State, Action]:
+    def get_greedy_policy(self) -> Policy:
         """
         Returns the greedy policy based on the current value function.
         """
@@ -62,7 +62,7 @@ class ValueFunction:
                     max_value = action_value
                     best_action = action
             greedy_policy[state] = best_action
-        return greedy_policy
+        return Policy.from_greedy(greedy_policy)
 
     def render(self) -> None:
         """

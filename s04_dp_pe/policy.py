@@ -20,12 +20,16 @@ class Policy:
         return self._prob_dict[state]
 
     @classmethod
-    def from_greedy(cls, d: dict[State, Action]) -> "Policy":
+    def from_greedy(cls, d: dict[State, Action], epsilon: float = 0.0) -> "Policy":
         prob_dict: dict[State, dict[Action, float]] = defaultdict(
             lambda: dict.fromkeys(Action, 0.0)
         )
         for state, action in d.items():
             for a in Action:
-                prob = 1.0 if a == action else 0.0
+                prob = (
+                    1.0 - epsilon * (1 - 1 / len(Action))
+                    if a == action
+                    else epsilon / len(Action)
+                )
                 prob_dict[state][a] = prob
         return cls(prob_dict)

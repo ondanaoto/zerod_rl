@@ -69,13 +69,13 @@ class GridWorld:
             return 0.0
         return self.__REWARD_MAP[next_s.row, next_s.col]
 
-    def step(self, a: Action) -> tuple[float, State, bool]:
+    def step(self, a: Action) -> tuple[State, float, bool]:
         s = self.state
         next_s = GridWorld._next_state(s, a)
         reward = self._reward(s, a, next_s)
         done = next_s.row == 0 and next_s.col == 3
         self.state = next_s
-        return reward, next_s, done
+        return next_s, reward, done
 
     def render(self):
         grid = np.full((3, 4), " ")

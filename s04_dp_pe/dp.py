@@ -28,7 +28,7 @@ class ValueFunction:
                 continue
             for action, prob in action_probs.items():
                 env.reset(state)
-                reward, next_state, _ = env.step(action)
+                next_state, reward, _ = env.step(action)
                 next_value += prob * (
                     reward + self.__gamma * self._value_dict[next_state]
                 )
@@ -52,7 +52,7 @@ class ValueFunction:
             best_action: Action
             for action in Action:
                 env.reset(state)
-                reward, next_state, _ = env.step(action)
+                next_state, reward, _ = env.step(action)
                 action_value = reward + self.__gamma * self._value_dict[next_state]
                 if action_value > max_value:
                     max_value = action_value

@@ -35,9 +35,9 @@ class MonteCarloOptimizer:
 
         return history
 
-    def update_policy(self, threshold: float = 1e-4) -> None:
+    def update_policy(self, episode_num: int = 1000) -> None:
         """valueの更新が終わるまでself.piとself.bを更新する"""
-        for _ in range(1000):
+        for _ in range(episode_num):
             history = self._mc_start()
             revenue: float = 0
             rho = 1.0

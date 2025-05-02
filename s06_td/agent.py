@@ -2,20 +2,25 @@ from collections import defaultdict
 
 import numpy as np
 
-from c01_grid_world.env import State, Action
+from c01_grid_world.env import Action, State
+
 
 class QLearningAgent:
-    def __init__(self, alpha: float = 0.1, gamma: float = 0.9, epsilon: float=0.1) -> None:
+    def __init__(
+        self, alpha: float = 0.1, gamma: float = 0.9, epsilon: float = 0.1
+    ) -> None:
         self.Q: dict[tuple[State, Action], float] = defaultdict(lambda: 0.0)
         self.alpha: float = alpha
         self.gamma: float = gamma
         self.epsilon: float = epsilon
 
-    def update(self, state: State, action: Action, reward: float, next_state: State) -> None:
+    def update(
+        self, state: State, action: Action, reward: float, next_state: State
+    ) -> None:
         self.Q[state, action] += self.alpha * (
-            reward + self.gamma * (
-                max(self.Q[next_state, a] for a in Action)
-            ) - self.Q[state, action]
+            reward
+            + self.gamma * (max(self.Q[next_state, a] for a in Action))
+            - self.Q[state, action]
         )
 
     def b(self, state: State, epsilon: float | None = None) -> dict[Action, float]:

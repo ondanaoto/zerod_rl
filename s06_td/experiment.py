@@ -1,10 +1,12 @@
 from c01_grid_world.env import GridWorld
+
 from .agent import QLearningAgent
+
 
 def main():
     agent = QLearningAgent()
     env = GridWorld()
-    for episode in range(1000):
+    for _ in range(1000):
         state = env.reset()
         done = False
         while not done:

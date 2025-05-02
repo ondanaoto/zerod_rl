@@ -44,9 +44,7 @@ class MonteCarloOptimizer:
             for state, action, reward in reversed(history.get()):
                 q_value = self.__qa_values[state, action]
                 revenue = reward + self.gamma * rho * revenue
-                self.__qa_values[state, action] += (
-                    self.alpha * (revenue - q_value)
-                )
+                self.__qa_values[state, action] += self.alpha * (revenue - q_value)
                 rho *= self.pi(state)[action] / self.b(state)[action]
 
             greedy_dict: dict[State, Action] = defaultdict(lambda: Action.UP)

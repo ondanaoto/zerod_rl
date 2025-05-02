@@ -3,7 +3,7 @@ from collections import defaultdict
 import numpy as np
 
 from c01_grid_world.env import Action, GridWorld, State
-from s04_dp_pe.policy import Policy
+from s04_dp.policy import Policy
 
 from .history import History
 

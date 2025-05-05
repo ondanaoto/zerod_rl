@@ -51,10 +51,11 @@ class GridWorld:
         self.reset(s)
         self.__REWARD_MAP = np.array([[0, 0, 0, 1], [0, None, 0, -1], [0, 0, 0, 0]])
 
-    def reset(self, s: State | None = None) -> None:
+    def reset(self, s: State | None = None) -> State:
         if s is None:
             s = State(row=2, col=0)
         self.state = s
+        return self.state
 
     @staticmethod
     def _next_state(s: State, a: Action) -> State:
